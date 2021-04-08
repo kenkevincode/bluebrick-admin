@@ -26,7 +26,9 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import "style/reset";
+
 * {
     box-sizing: border-box;
 }

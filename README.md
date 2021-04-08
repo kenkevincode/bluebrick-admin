@@ -1,4 +1,4 @@
-# blue-brick-dev
+# bluebrick-admin
 
 ## Project setup
 ```
