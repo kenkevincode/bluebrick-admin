@@ -28,41 +28,13 @@
 
 <style lang="scss">
 @import "style/reset";
+@import "style/theme";
 
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #000000;
-} 
-
-:root {
-    --nav-height: 2.5rem;
-    --nav-bg-color: #202020;
-    --nav-separator-color: #436260;
-    --nav-bg-item-color: #202020;
-    --nav-item-font-size: 1.5rem;
-    --nav-item-text-color-hover: #ffffff;
-    --nav-item-bg-hover: #436260;
-    --content-bg-color:  #202020;
-    --toolbar-height: 2.5rem;
-    --button-bg-color:#000000;
-    --button-height: 2rem;
-    --button-text-color-hover:#ffffff;
-    --button-bg-color-hover: #778cff;
-    --button-bordrer: #aeafff;
-    --button-bordrer-hover: #ffffff;
-    --admin-panel-bg-color: #000000;
-    --admin-panel-height: 5rem;
-    --color-text: #aeafff;
 }
 
 .app {
