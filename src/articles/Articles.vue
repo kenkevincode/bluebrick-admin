@@ -1,7 +1,7 @@
 <template>
 	<div class="articles">
 		<div class="content">
-      <ArticleForm ref="articleForm" :save="saveArticle" />
+			<ArticleForm ref="articleForm" :save="saveArticle" />
 			<div class="toolbar">
 				<span class="button" @click="newArticle">newArticle</span>
 				<span class="button">Delete</span>
@@ -12,11 +12,12 @@
 				<table class="table-articles">
 					<tr>
 						<th class="center-table-text">
-							<input ref="mainCheckbox" class="checkbox-article" type="checkbox" />
+							<Checkbox />
 						</th>
 						<th></th>
 						<th class="center-table-text">ID</th>
-						<th class="center-table-text">Name</th>
+						<th class="center-table-text">Author</th>
+						<th class="center-table-text">Title</th>
 						<th class="center-table-text">Description</th>
 						<th class="center-table-text">Content</th>
 						<th class="center-table-text">Group</th>
@@ -31,13 +32,14 @@
 							:style="{ opacity: article.published === false ? '0.3' : '1' }"
 						>
 							<td class="center-table-text center-table-text">
-								<input class="checkbox-article" type="checkbox" />
+								<Checkbox />
 							</td>
 							<td class="center-table-text">
 								<button class="mini-button edit" @click="editArticle(article)">Edit</button>
 							</td>
-							<td class="center-table-text" @click="onArticleClick(article)">{{ article.id }}</td>
-							<td class="table-text center-table-text">{{ renderText(article, 'name') }}</td>
+							<td class="center-table-text">{{ article.id }}</td>
+							<td class="table-text center-table-text">{{ renderText(article, 'author') }}</td>
+							<td class="table-text center-table-text">{{ renderText(article, 'title') }}</td>
 							<td class="table-text center-table-text">{{ renderText(article, 'description') }}</td>
 							<td class="table-text center-table-text">{{ renderText(article, 'content') }}</td>
 							<td class="table-text center-table-text">{{ renderText(article, 'group') }}</td>
@@ -61,10 +63,11 @@
 <script>
 import ArticleForm from '@/articles/ArticleForm'
 import service from '@/service'
+import Checkbox from '@/controls/Checkbox'
 
 export default {
 	name: 'Articles',
-	components: { ArticleForm },
+	components: { ArticleForm, Checkbox },
 	data() {
 		return {
 			articleFormVisible: false,
@@ -77,6 +80,21 @@ export default {
 			this.$refs.articleForm.init()
 			this.$refs.articleForm.show(true)
 		},
+		saveArticle(article) {
+			console.log('article:', article)
+
+			if (article.id) {
+				// update article
+				service.article.update(article.id, article)
+			} else {
+				// create article
+				service.article.create(article)
+			}
+		},
+		editArticle(article) {
+			this.$refs.articleForm.init(article)
+			this.$refs.articleForm.show(true)
+		},
 		renderText(article, field) {
 			return article[field]
 		},
@@ -84,17 +102,11 @@ export default {
 			const date = article[field]
 			return date ? date.toLocaleString() : ''
 		},
-		editArticle(article) {
-			this.$refs.articleForm.init(article)
-			this.$refs.articleForm.show(true)
-		},
 		publishStateTrue(article) {
 			article.published = true
-			console.log('articalPublished:', article)
 		},
 		publishStateFalse(article) {
 			article.published = false
-			console.log('articalPublished:', article)
 		}
 	},
 	created() {
@@ -125,12 +137,12 @@ body {
 }
 
 .content {
-	padding: 1rem 2rem 2rem 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
 	background-color: var(--content-bg-color);
+	padding: 1rem;
 }
 
 .toolbar {
@@ -200,7 +212,7 @@ body {
 
 .center-table-text {
 	text-align: center;
-	padding: 0.5rem;
+	padding: 0 1rem;
 }
 .satrt-table-text {
 	text-align: start;
@@ -213,7 +225,6 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
-	padding: 1rem;
 	width: 100%;
 	background-color: var(--nav-item-bg);
 }
@@ -249,10 +260,6 @@ body {
 	tr:nth-child(even) {
 		background-color: var(--table-tr-nth-even);
 	}
-}
-.checkbox-article {
-	width: 2rem;
-	height: 2rem;
 }
 
 .admin-panel {

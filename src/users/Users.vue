@@ -86,7 +86,7 @@ body {
 }
 
 .content {
-	padding: 1rem 2rem 2rem 1rem;
+	padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -118,7 +118,7 @@ body {
 }
 .center-table-text {
 	text-align: center;
-	padding: 0.5rem;
+	padding: 0 1rem;
 }
 .satrt-table-text {
 	text-align: start;
@@ -131,7 +131,6 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
-	padding: 1rem;
 	width: 100%;
 	background-color: var(--nav-item-bg);
 }
@@ -142,7 +141,7 @@ body {
 	margin-top: 20px;
 	border-collapse: collapse;
 	font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 1.2rem;
+	font-size: 1.2rem;
 	background-color: var(--table-bg);
 	border: var(--table-border);
 	th,
@@ -169,8 +168,11 @@ body {
 	}
 }
 .checkbox-user {
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 2rem;
+	height: 2rem;
+}
+.checkbox-user:hover{
+  box-shadow: 0 0 3px 3px  #54a3ff;
 }
 .admin-panel {
 	display: flex;

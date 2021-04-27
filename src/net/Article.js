@@ -7,15 +7,15 @@ class Article {
   }
 
   create (article) {
-    return net.put(`${config.api}/articles`, article)
+    return net.post(`${config.api}/articles`, article)
   }
 
   update (id, article) {
-    return net.post(`${config.api}/articles/${id}`, article)
+    return net.put(`${config.api}/articles/${id}`, article)
   }
 
-  remove (ids) {
-    return net.del(`${config.api}/articles`, ids)
+  remove (id) {
+    return net.del(`${config.api}/articles/${id}`)
   }
 }
 export default Article

@@ -10,11 +10,15 @@
 </template>
 
 <style lang="scss">
+@import url(https://fonts.googleapis.com/css?family=Cherry+Swash);
 @import 'style/reset';
 @import 'style/theme';
+@import 'style/layout';
+
+$fontFamily: "Cherry Swash";
 
 body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $fontFamily;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #ffffff;
@@ -35,6 +39,7 @@ body {
   padding: 1rem;
 
   a {
+    font-family: $fontFamily;
 		display: inline-flex;
 		align-items: center;
 		color: var(--nav-item-color);
