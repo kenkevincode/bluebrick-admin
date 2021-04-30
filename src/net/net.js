@@ -3,17 +3,8 @@ async function get(url, params /* , cancelToken = undefined */) {
     method: 'GET',
     mode: 'cors'
   }
-
-  console.log('-- get url:', url)
-
   const response = await fetch(url, params, options)
-
-  console.log('-- get response:', response)
-
   const data = await response.json()
-
-  console.log('-- data:', data)
-
   return data
 }
 

@@ -16,8 +16,8 @@
 						<th class="center-table-text">ID</th>
 						<th class="center-table-text">Email</th>
 						<th class="center-table-text">Password</th>
-						<th class="center-table-text">login</th>
-						<th class="center-table-text">Group</th>
+						<th class="center-table-text">Username</th>
+						<th class="center-table-text">Groups</th>
 						<th class="center-table-text">LastLoginedDate</th>
 					</tr>
 					<tbody ref="rows">
@@ -26,8 +26,8 @@
 							<td class="center-table-text" @click="onUserClick(user)">{{ user.id }}</td>
 							<td class="center-table-text">{{ renderText(user, 'email') }}</td>
 							<td class="center-table-text">{{ renderText(user, 'password') }}</td>
-							<td class="center-table-text">{{ renderText(user, 'login') }}</td>
-							<td class="center-table-text">{{ renderText(user, 'group') }}</td>
+							<td class="center-table-text">{{ renderText(user, 'username') }}</td>
+							<td class="center-table-text">{{ renderText(user, 'groups') }}</td>
 							<td class="center-table-text">{{ renderDate(user, 'lastLoginedDate') }}</td>
 						</tr>
 					</tbody>

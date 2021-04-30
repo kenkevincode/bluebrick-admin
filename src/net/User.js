@@ -7,11 +7,11 @@ class User {
   }
 
   create (user) {
-    return net.put(`${config.api}/users`, user)
+    return net.post(`${config.api}/users`, user)
   }
 
   update (id, user) {
-    return net.post(`${config.api}/users/${id}`, user)
+    return net.put(`${config.api}/users/${id}`, user)
   }
 
   remove (ids) {

@@ -127,18 +127,15 @@ export default {
 		onSubmit() {
 			if (!this.isFormValid()) return
 
-			if (!this.createdDate) this.createdDate = new Date().toISOString()
-			this.updatedDate = new Date().toISOString()
+			// if (!this.createdDate) this.createdDate = new Date().toISOString()
+			// this.updatedDate = new Date().toISOString()
 			const article = {
-				id: '',
+				id: this.id,
 				author: this.author,
 				title: this.title,
 				description: this.description,
 				content: this.content,
-				group: this.group,
-				createdDate: this.createdDate,
-				updatedDate: this.updatedDate,
-				published: this.published
+				group: this.group
 			}
 			if (this.id) article.id = this.id
 			this.save(article)

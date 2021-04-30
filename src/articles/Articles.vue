@@ -4,7 +4,7 @@
 			<ArticleForm ref="articleForm" :save="saveArticle" />
 			<div class="toolbar">
 				<span class="button" @click="newArticle">newArticle</span>
-				<span class="button">Delete</span>
+				<span class="button" @click="delArticle">Delete</span>
 				<span class="button">Show dialog</span>
 				<span class="button">Toggle admin panel</span>
 			</div>
@@ -32,12 +32,12 @@
 							:style="{ opacity: article.published === false ? '0.3' : '1' }"
 						>
 							<td class="center-table-text center-table-text">
-								<Checkbox />
+								<Checkbox @change="changeArticleCheckbox(article, $event)" />
 							</td>
 							<td class="center-table-text">
 								<button class="mini-button edit" @click="editArticle(article)">Edit</button>
 							</td>
-							<td class="center-table-text">{{ article.id }}</td>
+							<td class="table-text-id center-table-text">{{ article.id }}</td>
 							<td class="table-text center-table-text">{{ renderText(article, 'author') }}</td>
 							<td class="table-text center-table-text">{{ renderText(article, 'title') }}</td>
 							<td class="table-text center-table-text">{{ renderText(article, 'description') }}</td>
@@ -64,6 +64,7 @@
 import ArticleForm from '@/articles/ArticleForm'
 import service from '@/service'
 import Checkbox from '@/controls/Checkbox'
+import Vue from 'vue'
 
 export default {
 	name: 'Articles',
@@ -81,15 +82,37 @@ export default {
 			this.$refs.articleForm.show(true)
 		},
 		saveArticle(article) {
-			console.log('article:', article)
-
 			if (article.id) {
 				// update article
 				service.article.update(article.id, article)
+					.then((updatedArticle) => {
+						const idx = this.articles.findIndex((idx) => idx.id === updatedArticle.id)
+						Vue.set(this.articles, idx, updatedArticle)
+					})
 			} else {
 				// create article
 				service.article.create(article)
+					.then((newArticle) => {
+						this.articles = [newArticle, ...this.articles]
+						// this.articles.push(newArticle)
+					})
 			}
+		},
+		changeArticleCheckbox(article, event) {
+			console.log('article:', article)
+			console.log('event:', event)
+			const checked = event.target.checked
+			if (checked) {
+				this.selectedArticles.push(article.id)
+			} else {
+				const index = this.selectedArticles.findIndex((a) => a === article.id)
+				if (index >= 0) {
+					this.selectedArticles.splice(index, 1)
+				}
+			}
+		},
+		delArticle() {
+			// седалеть
 		},
 		editArticle(article) {
 			this.$refs.articleForm.init(article)
@@ -110,10 +133,12 @@ export default {
 		}
 	},
 	created() {
+		this.selectedArticles = []
+	},
+	mounted() {
 		service.article.loadAll().then((data) => {
 			this.articles = data
 		})
-		this.selectedArticles = []
 	}
 }
 </script>
@@ -227,6 +252,19 @@ body {
 	height: 100%;
 	width: 100%;
 	background-color: var(--nav-item-bg);
+}
+.table-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+.table-text-id {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100px;
 }
 
 .table-articles {
